@@ -2925,14 +2925,12 @@ ControllerSpotify.prototype.volumeListener = function () {
     socket= io.connect('http://localhost:3000');
     socket.on("connect", function(){
         socket.on("pushState", function(state) {
+                currentService = state.service;
             if (state && state.volume !== undefined && state.mute !== undefined && Number.isInteger(state.volume)) {
                 let volume = parseInt(state.volume);
                 let mute = state.mute;
                 if (mute) {
                     volume = 0;
-                }
-                if (state.service !== undefined) {
-                    currentService = state.service;
                 }
                 currentVolumioVolume = volume;
                 if (currentVolumioVolume > 0 && currentVolumioVolume !== currentSpotifyVolume) {
